@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
-import { validateRequest, BadRequestError } from '@learnatibm/common';
+import { validateRequest, BadRequestError } from '@learnatibm/sharedlib';
 import { User } from '../models/user';
 import { Password } from '../services/password';
 import jwt from 'jsonwebtoken';

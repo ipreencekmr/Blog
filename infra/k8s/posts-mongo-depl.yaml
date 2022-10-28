@@ -1,29 +1,29 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth-mongo-depl
+  name: posts-mongo-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: auth-mongo
+      app: posts-mongo
   template:
     metadata:
       labels:
-        app: auth-mongo
+        app: posts-mongo
     spec:
       containers:
-        - name: auth-mongo
-          image: mongo:latest
+        - name: posts-mongo
+          image: mongo
 
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-mongo-srv
+  name: posts-mongo-srv
 spec:
   selector:
-    app: auth-mongo
+    app: posts-mongo
   ports:
     - name: db
       protocol: TCP
