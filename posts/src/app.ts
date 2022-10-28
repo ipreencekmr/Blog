@@ -5,6 +5,8 @@ import cookieSession from 'cookie-session';
 import { currentUser, errorHandler, NotFoundError } from '@learnatibm/sharedlib';
 import { createPostRouter } from './routes/new';
 import { updatePostRouter } from './routes/update';
+import { getPostsRouter } from './routes/posts';
+import { getMyPostsRouter } from './routes/myposts';
 
 const app = express();
 app.set('trust proxy', true);
@@ -18,6 +20,8 @@ app.use(
 app.use(currentUser);
 app.use(createPostRouter);
 app.use(updatePostRouter);
+app.use(getPostsRouter);
+app.use(getMyPostsRouter);
 
 app.all('*', async (req, res) => {
     throw new NotFoundError();

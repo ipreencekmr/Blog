@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: posts-depl
+  name: comments-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: posts
+      app: comments
   template:
     metadata:
       labels:
-        app: posts
+        app: comments
     spec:
       containers:
-        - name: posts
-          image: ipreencekmr/posts
+        - name: comments
+          image: ipreencekmr/comments
           env:
             - name: NATS_URL
               value: "http://nats-srv:4222"
@@ -25,7 +25,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: MONGO_URI
-              value: "mongodb://posts-mongo-srv:27017/posts"
+              value: "mongodb://comments-mongo-srv:27017/comments"
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
@@ -36,12 +36,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: posts-srv
+  name: comments-srv
 spec:
   selector:
-    app: posts
+    app: comments
   ports:
-    - name: posts
+    - name: comments
       protocol: TCP
       port: 3000
       targetPort: 3000

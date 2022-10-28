@@ -1,13 +1,10 @@
 import mongoose from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
-import { CommentDoc } from './comment';
 
 interface PostAttrs {
-    userId: string;
+    id: string,
     title: string;
     desc: string;
-    date: Date;
-    comments?: Array<CommentDoc>;
 }
 
 interface PostModel extends mongoose.Model<PostDoc> {
@@ -15,16 +12,13 @@ interface PostModel extends mongoose.Model<PostDoc> {
 }
 
 interface PostDoc extends mongoose.Document {
-    userId: string;
+    id: string,
     title: string;
     desc: string;
-    date: Date;
-    version: number;
-    comments: Array<CommentDoc>;
 }
 
 const postSchema = new mongoose.Schema({
-    userId: {
+    id: {
         type: String,
         required: true
     },
@@ -35,17 +29,7 @@ const postSchema = new mongoose.Schema({
     desc: {
         type: String,
         required: true
-    },
-    date: {
-        type: mongoose.Schema.Types.Date,
-        default: Date.now
-    },
-    comments: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Comment'
-        }
-    ]
+    }
 }, {
     toJSON: {
         transform(doc, ret) {
@@ -59,7 +43,11 @@ postSchema.set('versionKey', 'version');
 postSchema.plugin(updateIfCurrentPlugin);
 
 postSchema.statics.build = (attrs: PostAttrs) => {
-    return new Post(attrs);
+    return new Post({
+        _id: attrs.id,
+        title: attrs.title,
+        desc: attrs.desc
+    });
 }
 
 const Post = mongoose.model<PostDoc, PostModel>('Post', postSchema);

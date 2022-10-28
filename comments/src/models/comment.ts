@@ -2,26 +2,26 @@ import mongoose from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
 
 interface CommentAttrs {
-    id: string;
+    userId: string;
     postId: string;
     desc: string;
-    version: number;
+    date: Date;
 }
 
 interface CommentModel extends mongoose.Model<CommentDoc> {
     build(attr: CommentAttrs): CommentDoc;
-    findByEvent(event: { id: string, version: number }): Promise<CommentDoc | null>;
 }
 
-export interface CommentDoc extends mongoose.Document {
-    id: string;
+interface CommentDoc extends mongoose.Document {
+    userId: string;
     postId: string;
     desc: string;
+    date: Date;
     version: number;
 }
 
 const commentSchema = new mongoose.Schema({
-    id: {
+    userId: {
         type: String,
         required: true
     },
@@ -32,6 +32,10 @@ const commentSchema = new mongoose.Schema({
     desc: {
         type: String,
         required: true
+    },
+    date: {
+        type: mongoose.Schema.Types.Date,
+        default: Date.now
     }
 }, {
     toJSON: {
@@ -46,18 +50,8 @@ commentSchema.set('versionKey', 'version');
 commentSchema.plugin(updateIfCurrentPlugin);
 
 commentSchema.statics.build = (attrs: CommentAttrs) => {
-    return new Comment({
-        _id: attrs.id,
-        desc: attrs.desc
-    });
+    return new Comment(attrs);
 }
-
-commentSchema.statics.findByEvent = (event: { id: string, version: number }) => {
-    return Comment.findOne({
-        _id: event.id,
-        version: event.version - 1
-    });
-};
 
 const Comment = mongoose.model<CommentDoc, CommentModel>('Comment', commentSchema);
 

@@ -3,8 +3,8 @@ import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { currentUser, errorHandler, NotFoundError } from '@learnatibm/sharedlib';
-import { createPostRouter } from './routes/new';
-import { updatePostRouter } from './routes/update';
+import { createCommentRouter } from './routes/new';
+import { updateCommentRouter } from './routes/update';
 
 const app = express();
 app.set('trust proxy', true);
@@ -16,7 +16,8 @@ app.use(
     })
 )
 app.use(currentUser);
-app.use(createPostRouter);
+app.use(createCommentRouter);
+app.use(updateCommentRouter);
 
 app.all('*', async (req, res) => {
     throw new NotFoundError();
