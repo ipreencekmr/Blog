@@ -17,7 +17,6 @@ app.use(
 )
 app.use(currentUser);
 app.use(createPostRouter);
-app.use(updatePostRouter);
 
 app.all('*', async (req, res) => {
     throw new NotFoundError();
