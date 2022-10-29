@@ -15,7 +15,7 @@ router.post('/api/comments',
             .trim()
             .not()
             .isEmpty()
-            .withMessage('Title must be provided'),
+            .withMessage('PostId must be provided'),
         body('desc')
             .trim()
             .notEmpty()

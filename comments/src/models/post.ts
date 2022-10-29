@@ -14,6 +14,7 @@ interface PostModel extends mongoose.Model<PostDoc> {
 interface PostDoc extends mongoose.Document {
     title: string;
     desc: string;
+    version: number;
 }
 
 const postSchema = new mongoose.Schema({
