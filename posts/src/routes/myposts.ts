@@ -17,4 +17,4 @@ router.get('/api/posts/myposts',
     }
 );
 
-export { router as createPostRouter };
+export { router as getMyPostsRouter };
