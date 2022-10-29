@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Router from 'next/router';
 import useRequest from '../../hooks/use-request';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 export default () => {
 
@@ -20,23 +22,28 @@ export default () => {
         await doRequest();
     }
 
-    return <form onSubmit={onSubmit}>
+    return <Form onSubmit={onSubmit}>
         <h1>Sign In</h1>
-        <div className="form-group">
-            <label>Email Address</label>
-            <input value={email}
-                className="form-control"
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+                type="email"
+                placeholder="Enter email"
+                value={email}
                 onChange={e => setEmail(e.target.value)}
             />
-        </div>
-        <div className="form-group">
-            <label>Password</label>
-            <input value={password}
-                onChange={e => setPassword(e.target.value)}
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
                 type="password"
-                className="form-control" />
-        </div>
+                placeholder="Password"
+                value={password}
+                onChange={e => setPassword(e.target.value)} />
+        </Form.Group>
         {errors}
-        <button className="btn btn-primary">Sign In</button>
-    </form>
+        <Button variant="primary" type="submit">
+            Sign In
+        </Button>
+    </Form>
 }
