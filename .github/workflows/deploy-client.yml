@@ -1,19 +1,19 @@
-name: deploy-posts
+name: deploy-client
 
 on:
   push:
     branches:
       - master
     paths:
-      - "posts/**"
+      - "client/**"
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: cd posts && docker build -t ipreencekmr/posts .
+      - run: cd client && docker build -t ipreencekmr/client .
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      - run: docker push ipreencekmr/posts
+      - run: docker push ipreencekmr/client
