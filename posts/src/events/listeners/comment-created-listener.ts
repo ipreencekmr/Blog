@@ -25,9 +25,16 @@ export class CommentCreatedListener extends Listener<CommentCreatedEvent> {
             version
         });
 
-        await comment.save();
+        const comments = post.comments;
+        comments.push(comment);
 
-        post.comments.push(comment);
+        post.set({
+            comments: comments
+        });
+
+        await post.save();
+
+        await comment.save();
 
         msg.ack()
     }

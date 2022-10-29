@@ -32,14 +32,14 @@ const NewPost = () => {
             <Card.Body>
                 <Form onSubmit={onSubmit}>
                     <InputGroup className="mb-3">
-                        <InputGroup.Text id="inputGroup-sizing-default"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}>
+                        <InputGroup.Text id="inputGroup-sizing-default">
                             Post Title
                          </InputGroup.Text>
                         <Form.Control
                             aria-label="Default"
                             aria-describedby="inputGroup-sizing-default"
+                            value={title}
+                            onChange={(e) => setTitle(e.target.value)}
                         />
                     </InputGroup>
                     <FloatingLabel controlId="floatingTextarea2" label="Description">

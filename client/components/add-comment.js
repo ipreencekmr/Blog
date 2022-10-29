@@ -4,8 +4,9 @@ import Form from 'react-bootstrap/Form';
 import { Card } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import useRequest from '../hooks/use-request';
+import Router from 'next/router'
 
-export default ({ postId }) => {
+export default ({ currentUser, postId }) => {
     const [desc, setDesc] = useState('');
     const { doRequest, errors } = useRequest({
         url: '/api/comments',
@@ -15,6 +16,7 @@ export default ({ postId }) => {
         },
         onSuccess: () => {
             // Refresh the page
+            Router.reload(window.location.pathname)
         }
     });
 
@@ -23,7 +25,7 @@ export default ({ postId }) => {
         doRequest();
     }
 
-    return <Card className="text-center mt-2">
+    return currentUser && <Card className="text-center mt-2">
         <Card.Body>
             <Form onSubmit={onSubmit}>
                 <FloatingLabel controlId="floatingTextarea2" label="Comments">

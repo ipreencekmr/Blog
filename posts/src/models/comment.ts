@@ -14,17 +14,12 @@ interface CommentModel extends mongoose.Model<CommentDoc> {
 }
 
 export interface CommentDoc extends mongoose.Document {
-    id: string;
     postId: string;
     desc: string;
     version: number;
 }
 
 const commentSchema = new mongoose.Schema({
-    id: {
-        type: String,
-        required: true
-    },
     postId: {
         type: String,
         required: true
@@ -48,6 +43,7 @@ commentSchema.plugin(updateIfCurrentPlugin);
 commentSchema.statics.build = (attrs: CommentAttrs) => {
     return new Comment({
         _id: attrs.id,
+        postId: attrs.postId,
         desc: attrs.desc
     });
 }

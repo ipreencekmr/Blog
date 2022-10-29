@@ -1,4 +1,3 @@
-import Link from "next/link"
 import PostList from '../../components/post-list';
 
 const MyPost = ({ currentUser, posts }) => {

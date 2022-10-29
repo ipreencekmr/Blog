@@ -6,7 +6,7 @@ import React from 'react';
 export default ({ currentUser, posts }) => {
 
     const postElements = posts && posts.map(post =>
-        <Card className="text-center" key={post.id}>
+        <Card className="m-4 text-center" key={post.id}>
             <Card.Header>
                 {post.title}
             </Card.Header>
@@ -17,24 +17,15 @@ export default ({ currentUser, posts }) => {
             </Card.Body>
             <Card.Footer className="text-muted">
                 <Comments comments={post.comments} />
-                <AddComment postId={post.postId}></AddComment>
+                <AddComment
+                    currentUser={currentUser}
+                    postId={post.id}>
+                </AddComment>
             </Card.Footer>
         </Card>
     );
 
     return <React.Fragment>
-        <Card className="text-center" >
-            <Card.Header>My Post
-        </Card.Header>
-            <Card.Body>
-                <Card.Text>
-                    Post Description
-            </Card.Text>
-            </Card.Body>
-            <Card.Footer className="text-muted">
-                <Comments comments={[]} />
-                <AddComment postId={"af"}></AddComment>
-            </Card.Footer>
-        </Card>
+        {postElements}
     </React.Fragment>
 };

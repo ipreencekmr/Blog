@@ -36,9 +36,7 @@ export default ({ currentUser }) => {
 
     return <Nav
         activeKey="/"
-        className="justify-content-between"
-        onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
-    >
+        className="justify-content-between">
         <Nav.Item >
             <Link href="/">
                 <a className="nav-link">Home</a>

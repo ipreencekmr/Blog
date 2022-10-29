@@ -12,16 +12,11 @@ interface PostModel extends mongoose.Model<PostDoc> {
 }
 
 interface PostDoc extends mongoose.Document {
-    id: string,
     title: string;
     desc: string;
 }
 
 const postSchema = new mongoose.Schema({
-    id: {
-        type: String,
-        required: true
-    },
     title: {
         type: String,
         required: true

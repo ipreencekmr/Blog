@@ -3,7 +3,6 @@ import { body } from 'express-validator';
 import { validateRequest, requireAuth, NotFoundError } from '@learnatibm/sharedlib';
 import { Comment } from '../models/comment';
 import { natsWrapper } from '../nats-wrapper';
-import mongoose from 'mongoose';
 import { CommentCreatedPublisher } from '../events/publishers/comment-created-publisher';
 import { Post } from '../models/post';
 
@@ -16,7 +15,6 @@ router.post('/api/comments',
             .trim()
             .not()
             .isEmpty()
-            .custom((input: string) => mongoose.Types.ObjectId.isValid(input))
             .withMessage('Title must be provided'),
         body('desc')
             .trim()

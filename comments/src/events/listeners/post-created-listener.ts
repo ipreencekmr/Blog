@@ -18,6 +18,6 @@ export class PostCreatedListener extends Listener<PostCreatedEvent> {
 
         await post.save();
 
-        msg.ack()
+        msg.ack();
     }
 }

@@ -13,7 +13,7 @@ export class CommentUpdatedListener extends Listener<CommentUpdatedEvent>{
 
         const { postId } = data;
 
-        const post = await Post.findById(postId);
+        const post = await Post.findById(postId).populate('comments');
 
         if (!post) {
             throw new NotFoundError();
@@ -26,13 +26,25 @@ export class CommentUpdatedListener extends Listener<CommentUpdatedEvent>{
         const { desc } = data;
         comment.set({ desc });
 
-        await comment.save();
+        const comments = post.comments;
 
-        const commentToUpdate = post.comments.find(object => object.id === comment.id);
+        console.log('comment.id: ' + comment.id);
 
-        if (commentToUpdate) {
-            commentToUpdate.desc = desc;
+        const index = comments.findIndex(object => object.id === comment.id);
+
+        console.log('found index: ' + index);
+
+        if (comments.length >= 0) {
+            comments.splice(index, 1, comment);
         }
+
+        post.set({
+            comments: comments
+        });
+
+        await post.save();
+
+        await comment.save();
 
         msg.ack();
     }

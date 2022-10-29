@@ -11,7 +11,7 @@ router.get('/api/posts/myposts',
 
         const userId = req.currentUser!.id;
 
-        const posts = await Post.find({ userId: userId });
+        const posts = await Post.find({ userId: userId }).populate('comments');
 
         res.send(posts);
     }
