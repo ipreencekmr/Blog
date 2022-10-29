@@ -5,6 +5,7 @@ import cookieSession from 'cookie-session';
 import { currentUser, errorHandler, NotFoundError } from '@learnatibm/sharedlib';
 import { createCommentRouter } from './routes/new';
 import { updateCommentRouter } from './routes/update';
+import { getCommentRouter } from './routes/detail';
 
 const app = express();
 app.set('trust proxy', true);
@@ -18,6 +19,7 @@ app.use(
 app.use(currentUser);
 app.use(createCommentRouter);
 app.use(updateCommentRouter);
+app.use(getCommentRouter);
 
 app.all('*', async (req, res) => {
     throw new NotFoundError();

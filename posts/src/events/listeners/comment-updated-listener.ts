@@ -27,12 +27,7 @@ export class CommentUpdatedListener extends Listener<CommentUpdatedEvent>{
         comment.set({ desc });
 
         const comments = post.comments;
-
-        console.log('comment.id: ' + comment.id);
-
         const index = comments.findIndex(object => object.id === comment.id);
-
-        console.log('found index: ' + index);
 
         if (comments.length >= 0) {
             comments.splice(index, 1, comment);
