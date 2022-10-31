@@ -50,6 +50,11 @@ skaffold dev
 
 OR
 
+ cd auth && npm install && docker build -t YOUR_DOCKER_REPOSITORY/auth && docker push YOUR_DOCKER_REPOSITORY/auth
+ cd posts && npm install && docker build -t YOUR_DOCKER_REPOSITORY/posts && docker push YOUR_DOCKER_REPOSITORY/posts
+ cd comments && npm install && docker build -t YOUR_DOCKER_REPOSITORY/comments && docker push YOUR_DOCKER_REPOSITORY/comments
+ cd client && npm install && docker build -t YOUR_DOCKER_REPOSITORY/client && docker push YOUR_DOCKER_REPOSITORY/client
+ 
  kubectl apply -f .\infra\k8s\ .
  kubectl apply -f .\infra\k8s-dev\ .
  
