@@ -195,3 +195,34 @@ Payload:
 ```
 
 
+## To Deploy on AWS - EKS
+
+#### Install AWS CLI 
+
+```
+https://awscli.amazonaws.com/AWSCLIV2.msi
+```
+
+#### Configure your AWS Account 
+
+```
+aws configure
+
+AWS Access Key ID [None]: {YOUR_ACCESS_KEY}
+AWS Secret Access Key [None]: {YOUR_SECRET_ACCESS}
+Default region name [None]: {REGION_CODE}
+Default output format [None]: json
+```
+
+#### Install Chocolately using PowerShell
+
+```
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+```
+
+#### Install aws-iam-authenticator
+
+```
+choco install -y aws-iam-authenticator
+```
+
